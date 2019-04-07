@@ -29,7 +29,7 @@ export class TrialComponent implements OnInit {
 
   private onWindowResize = (e) => {
     this.width = this.p5.windowWidth;
-    this.p5.resizeCanvas(this.width, this.p5.windowHeight);
+    this.p5.resizeCanvas(this.width, this.width);
     // console.log(  this.p5)
   }
 
@@ -44,14 +44,24 @@ export class TrialComponent implements OnInit {
   }
 
   public drawing = function (p: any) {
+    var circleWidth
+
+    window.onresize = function() { 
+      p.resizeCanvas(p.windowWidth, p.windowWidth);
+      circleWidth = p.windowWidth > 200 ? p.windowWidth / 2 : 100;
+    }
+    
+
     p.setup = () => {
-      p.createCanvas(p.windowWidth, p.windowHeight).parent('sketch-trial');
+      circleWidth = p.windowWidth > 200 ? p.windowWidth / 2 : 100;
+      p.createCanvas(p.windowWidth, p.windowWidth).parent('sketch-trial');
       p.angleMode(p.DEGREES);
       p.rectMode(p.CENTER);
       p.background(255);
     };
     p.center = { x: 0, y: 0 };
     p.draw = () => {
+
 
       p.background(255);
       p.center.x = p.width / 2;
@@ -63,7 +73,8 @@ export class TrialComponent implements OnInit {
 
       p.push();
       p.fill(0);
-      p.ellipse(p.windowWidth/2 , p.windowHeight/2 ,p.windowWidth/2, p.windowWidth/2);
+      p.translate(p.center.x, p.center.y);
+      p.ellipse(0, 0, circleWidth, circleWidth);
       p.pop();
 
       p.push();

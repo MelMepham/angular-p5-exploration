@@ -1,0 +1,14 @@
+app-trial:host {
+    display: block;
+}
+
+.app-trial__animation-container {
+    ::ng-deep canvas {
+        display: block;
+        max-width: 500px;
+        max-height: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        
+    }
+}
