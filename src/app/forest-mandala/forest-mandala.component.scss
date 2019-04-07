@@ -1,3 +1,11 @@
 app-forest-mandala:host {
     display: block;
 }
+
+.app-forest-mandala__animation-container {
+    ::ng-deep canvas {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
