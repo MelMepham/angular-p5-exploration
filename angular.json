@@ -123,5 +123,10 @@
       }
     }
   },
-  "defaultProject": "p5-angular-animations"
+  "defaultProject": "p5-angular-animations",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
