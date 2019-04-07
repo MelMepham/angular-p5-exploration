@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { TrialComponent } from './trial/trial.component';
+import { ForestMandalaComponent } from './forest-mandala/forest-mandala.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TrialComponent
+    TrialComponent,
+    ForestMandalaComponent
   ],
   imports: [
     BrowserModule

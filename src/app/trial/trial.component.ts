@@ -14,7 +14,6 @@ export class TrialComponent implements OnInit {
   public scaleSketch = 0.5;
 
   constructor() { 
-    window.onresize = this.onWindowResize;
   }
 
   ngOnInit() {
@@ -25,12 +24,6 @@ export class TrialComponent implements OnInit {
   ngOnDestroy(): void {
     this.destroyCanvas();
     console.log('analog-destroy');
-  }
-
-  private onWindowResize = (e) => {
-    this.width = this.p5.windowWidth;
-    this.p5.resizeCanvas(this.width, this.width);
-    // console.log(  this.p5)
   }
 
   private createCanvas = () => {
