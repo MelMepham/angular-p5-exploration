@@ -30,20 +30,33 @@ export class ForestMandalaComponent implements OnInit {
   }
 
   public mandala = function (p: any) {
+  // mandala objects
+  let petal = p.windowWidth / 16;
 
-    var canvasSize;
-    let green100 = p.color('#ebffeb');
-    let green400 = p.color('#00b02c');
+  // colors
+  let green100 = p.color('#ebffeb');
+  let green400 = p.color('#00b02c');
 
+    window.onresize = function() {
+      canvasSize = p.windowWidth / 1.5;
+      p.resizeCanvas(canvasSize, canvasSize);
+      petal = p.windowWidth / 16;
+    }
+
+    // setup
+    let canvasSize;
     p.setup = () => {
-      canvasSize = p.windowHeight;
+      canvasSize = p.windowWidth / 1.5;
       p.createCanvas(canvasSize, canvasSize).parent('forest-mandala');
       p.angleMode(p.DEGREES);
       p.background(green100);
     };
     p.center = { x: 0, y: 0 };
 
+    //lets actually draw something now.
     p.draw = () => {
+      p.background(green100);
+
       p.center.x = p.width / 2;
       p.center.y = p.height / 2;
 
@@ -51,8 +64,11 @@ export class ForestMandalaComponent implements OnInit {
       p.translate(p.center.x, p.center.y);
       p.stroke(green400);
       p.fill(green400);
-      p.curve(100, 0, 0, 0, 0, 100, 100, 100);
-      p.curve(-100, 0, 0, 0, 0, 100, -100, 100);
+      for (let i=0; i<6; i++) {
+        p.curve(petal, 0, 0, 0, 0, petal, petal, petal);
+        p.curve(-petal, 0, 0, 0, 0, petal, -petal, petal);
+        p.rotate(60);
+      }
       p.pop();
     };
   };
