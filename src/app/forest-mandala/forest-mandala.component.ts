@@ -32,19 +32,28 @@ export class ForestMandalaComponent implements OnInit {
   public mandala = function (p: any) {
   // mandala objects
   let petal = p.windowWidth / 16;
+  let Atriangex1 = p.windowWidth / 33;
+  let Atriangley1 = p.windowWidth / 18;
+  let Atriangley2 = p.windowWidth / 9;
 
   // colors
   let green100 = p.color('#ebffeb');
-  let green400 = p.color('#00b02c');
+  let green200 = p.color('#b9ffa6');
 
   let oceanGreen400 = p.color('#00dfb2');
   let oceanBlue200 = p.color('#a6e5ff');
   let oceanBlue400 = p.color('#009fe1');
 
+  let hotPink200 = p.color('#ffa6e5');
+
     window.onresize = function() {
       canvasSize = p.windowWidth / 1.5;
       p.resizeCanvas(canvasSize, canvasSize);
       petal = p.windowWidth / 16;
+      Atriangex1 = p.windowWidth / 33;
+      Atriangley1 = p.windowWidth / 18;
+      Atriangley2 = p.windowWidth / 9;
+
     }
 
     // setup
@@ -64,19 +73,25 @@ export class ForestMandalaComponent implements OnInit {
       p.center.x = p.width / 2;
       p.center.y = p.height / 2;
 
-      //circle framing the flower of life
-      p.push();
-      p.translate(p.center.x, p.center.y);
-      p.noStroke();
-      p.fill(oceanBlue200);
-      p.ellipse(0, 0, petal * 2, petal * 2)
-      p.pop();
-
       //triange WIP
       p.push();
       p.translate(p.center.x, p.center.y);
-      p.triangle(-66, 66, -66, -33, 0, 66)
+      p.noStroke();
+      p.fill(green200);
+      for (let i=0; i<6; i++) {
+        p.triangle(Atriangex1, -Atriangley1, -Atriangex1, -Atriangley1, 0, -Atriangley2)
+        p.rotate(60);
+
+      };
       p.pop()
+
+      //circle framing the flower of life
+      p.push();
+      p.translate(p.center.x, p.center.y);
+      p.stroke(oceanBlue200);
+      p.fill(oceanBlue200);
+      p.ellipse(0, 0, petal * 2 , petal * 2)
+      p.pop();
 
       //flower of life
       p.push();
