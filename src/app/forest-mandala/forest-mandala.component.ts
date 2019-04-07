@@ -8,7 +8,7 @@ import * as sketch from 'p5';
 })
 export class ForestMandalaComponent implements OnInit {
 
-  private sketch;
+  private _sketch;
 
   ngOnInit() {
     this.createCanvas();
@@ -16,17 +16,14 @@ export class ForestMandalaComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.destroyCanvas();
-    console.log('analog-destroy');
   }
 
   private createCanvas = () => {
-    console.log('creating canvas');
-    this.sketch = new sketch(this.mandala);
+    this._sketch = new sketch(this.mandala);
   }
 
   private destroyCanvas = () => {
-    console.log('destroying canvas');
-    this.sketch.noCanvas();
+    this._sketch.noCanvas();
   }
 
   public mandala = function (p: any) {
