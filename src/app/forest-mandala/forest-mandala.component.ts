@@ -84,18 +84,6 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
         console.log(i);
         lastPrint = p.second();
       }
-      // for (let i = 0; i < 500; i++) {
-      //   if (i === 0) {
-      //     p.fill( p.lerpColor(p.color(colorA), p.color(colorB), (p.millis()%time)/5000.0) )
-      //   } 
-      //   // if (i === 5000) {
-      //   //   // p.fill( p.lerpColor(p.color(colorB), p.color(colorA), (p.millis()%time)/5000.0) )
-      //   // } 
-      //   // if(i === 10000) {
-      //   //   i = 0;
-      //   // }
-      // }
-
 
       p.background(this._c.green100);
 
@@ -157,7 +145,6 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
 
       // flower of life
       p.push();
-
       p.translate(p.center.x, p.center.y);
       p.strokeWeight(0.1);
       p.stroke(this._c.oceanGreen400);
