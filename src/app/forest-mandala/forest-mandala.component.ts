@@ -13,7 +13,7 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
   private _sketch;
   private _c = ForestMandalaColor;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.createCanvas();
   }
 
@@ -21,18 +21,22 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
     this.destroyCanvas();
   }
 
-  private createCanvas = () => {
+  private createCanvas(): void {
     this._sketch = new sketch(this.mandala.bind(this));
   }
 
-  private destroyCanvas = () => {
+  private destroyCanvas(): void {
     this._sketch.noCanvas();
   }
 
+  public mousePressed = () => this._sketch.noLoop();
+  
+  public mouseReleased = () => this._sketch.loop();
+
   public mandala = function (p: any) {
 
-    let lastPrint = 0;
-    let i = 0;
+  let lastPrint = 0;
+  let i = 0;
 
   // mandala objects
   let petal;
@@ -40,10 +44,13 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
   let AcircleSize, AcircleX;
   let BcircleX, BcircleSize;
 
-    // setup vars
-    let canvasSize;
+  // setup vars
+  let canvasSize;
 
   function calculateSizes() {
+    canvasSize = p.windowWidth / 1.5;
+    p.resizeCanvas(canvasSize, canvasSize);
+
     petal = p.windowWidth / 16;
     Atriangex1 = p.windowWidth / 33;
     Atriangley1 = p.windowWidth / 18;
@@ -55,10 +62,7 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
   }
 
     window.onresize = function() {
-      canvasSize = p.windowWidth / 1.5;
-      p.resizeCanvas(canvasSize, canvasSize);
       calculateSizes();
-
     };
 
     // setup
@@ -92,14 +96,27 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
 
       // Bcircles
       p.push();
-      p.translate(p.center.x, p.center.y);
-      p.noStroke();
-      p.fill(this._c.oceanBlue300);
-      p.rotate(p.radians(p.sin(p.frameCount/ 240) * -300));
-      for (let i = 0; i < 6; i++) {
-        p.ellipse(-BcircleX, 0, BcircleSize, BcircleSize);
-        p.rotate(60);
-      }
+        p.translate(p.center.x, p.center.y);
+        p.noStroke();
+        p.push()
+          p.fill(242, 255, 151, 200);
+          p.scale(1.2)
+          p.rotate(p.radians(p.frameCount / 3) * -50);
+          for (let i = 0; i < 6; i++) {
+            p.ellipse(-BcircleX, 0, BcircleSize, BcircleSize);
+            p.rotate(60);
+          }
+          p.pop()
+          
+          p.push()
+          p.fill(151, 242, 255, 150);
+          p.rotate(30);
+          p.rotate(p.radians(p.frameCount / 3) * 50);
+          for (let i = 0; i < 6; i++) {
+            p.ellipse(-BcircleX, 0, BcircleSize, BcircleSize);
+            p.rotate(60);
+          }
+          p.pop()
       p.pop();
 
       // Atriange
@@ -107,16 +124,11 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
       p.translate(p.center.x, p.center.y);
       p.noStroke();
       p.fill(this._c.green200);
+      p.rotate(p.radians(p.frameCount / 4) * 50);
       for (let i = 0; i < 6; i++) {
         p.triangle(Atriangex1, -Atriangley1, -Atriangex1, -Atriangley1, 0, -Atriangley2)
         p.rotate(60);
       }
-      p.pop();
-
-      // Btriange
-      p.push();
-      p.translate(p.center.x, p.center.y);
-      p.noStroke();
       p.fill(this._c.oceanBlue400);
       for (let i = 0; i < 6; i++) {
         p.triangle(Atriangex1, -Atriangley1, -Atriangex1, -Atriangley1, 0, -Btriangley1)
@@ -128,7 +140,9 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
       p.push();
       p.translate(p.center.x, p.center.y);
       p.noStroke();
+      p.rotate(p.radians(p.frameCount / 1) * -50);
       p.fill(this._c.hotPink200);
+      p.scale((p.sin(p.frameCount / 3) * 1.3) + .5);
       for (let i = 0; i < 6; i++) {
         p.ellipse(-AcircleX, 0, AcircleSize, AcircleSize)
         p.rotate(60);
@@ -138,8 +152,9 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
       // circle framing the flower of life
       p.push();
       p.translate(p.center.x, p.center.y);
-      p.stroke(this._c.oceanBlue200);
-      p.fill(this._c.oceanBlue200);
+      p.scale((p.sin(p.frameCount / 3) * 1.3) + .5);
+      p.noStroke()
+      p.fill(255, 255, 255, 200);
       p.ellipse(0, 0, petal * 2 , petal * 2)
       p.pop();
 
@@ -147,10 +162,10 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
       p.push();
       p.translate(p.center.x, p.center.y);
       p.strokeWeight(0.1);
-      p.stroke(this._c.oceanGreen400);
-      p.scale((p.sin(p.frameCount / 3) * 1.3) + .5);
+      p.stroke(255, 255, 255, 0);
+      p.scale((p.sin(p.frameCount / 4) * .5) + .5);
       p.rotate(p.radians(p.frameCount / 4) * -50);
-      flashColorChange(this._c.oceanBlue400, this._c.oceanGreen400, 5000)
+      p.fill(p.color(216, 255, 151))
       for (let i = 0; i < 6; i++) {
         p.curve(petal, 0, 0, 0, 0, petal, petal, petal);
         p.curve(-petal, 0, 0, 0, 0, petal, -petal, petal);
