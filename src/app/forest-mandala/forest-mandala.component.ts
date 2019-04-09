@@ -43,6 +43,7 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
   let Atriangex1, Atriangley1, Atriangley2, Btriangley1;
   let AcircleSize, AcircleX;
   let BcircleX, BcircleSize;
+  let flowerX1, flowerY1, flowerY2;
 
   // setup vars
   let canvasSize;
@@ -59,6 +60,9 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
     AcircleSize = canvasSize / 63;
     AcircleX = BcircleX = petal;
     BcircleSize = AcircleSize * 6;
+    flowerX1 = canvasSize / 15.1;
+    flowerY1 = canvasSize / 9;
+    flowerY2 = canvasSize / 5.5;
   }
 
     window.onresize = function() {
@@ -67,6 +71,7 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
 
     // setup
     p.setup = () => {
+      p.noLoop();
       canvasSize = p.windowWidth / 1.5;
       p.createCanvas(canvasSize, canvasSize).parent('forest-mandala');
       p.angleMode(p.DEGREES);
@@ -81,7 +86,7 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
 
     // lets actually draw something now.
     p.draw = () => {
-      var timeElapsed = p.second() - lastPrint;
+      const timeElapsed = p.second() - lastPrint;
 
       if (timeElapsed > 3) {
         i++;
@@ -94,21 +99,43 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
       p.center.x = p.width / 2;
       p.center.y = p.height / 2;
 
+      // flowerA
+      p.push();
+        p.translate(p.center.x, p.center.y);
+        p.fill(this._c.hotPink200);
+        p.push();
+          p.noStroke();
+          p.fill(this._c.hotPink200);
+          p.ellipse(0, 0, canvasSize/3.8, canvasSize/3.8);
+        p.pop();
+        p.push();
+          p.noStroke();
+          for (let i = 0; i < 6; i++) {
+            p.beginShape();
+            p.vertex(-flowerX1, -flowerY1);
+            p.bezierVertex(-flowerX1, -flowerY2, 0 ,-flowerY1, 0, -flowerY2);
+            p.bezierVertex(0 ,-flowerY1, flowerX1, -flowerY2, flowerX1, -flowerY1);
+            p.endShape();
+            p.rotate(60);
+          }
+        p.pop();
+      p.pop();
+
       // Bcircles
       p.push();
         p.translate(p.center.x, p.center.y);
         p.noStroke();
         p.push()
-          p.fill(242, 255, 151, 200);
+        p.fill(this._c.oceanBlue400);
           p.scale(1.2)
           p.rotate(p.radians(p.frameCount / 3) * -50);
           for (let i = 0; i < 6; i++) {
             p.ellipse(-BcircleX, 0, BcircleSize, BcircleSize);
             p.rotate(60);
           }
-          p.pop()
-          
-          p.push()
+          p.pop();
+
+          p.push();
           p.fill(151, 242, 255, 150);
           p.rotate(30);
           p.rotate(p.radians(p.frameCount / 3) * 50);
@@ -172,7 +199,6 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
         p.rotate(60);
       }
       p.pop();
-
     };
 
     function flashColorChange(colorA, colorB, time) {
