@@ -1,5 +1,7 @@
 export enum ForestMandalaColor {
 
+    yellowGreen200 = '#d8ff97',
+
     green100 = '#ebffeb',
     green200 = '#b9ffa6',
 

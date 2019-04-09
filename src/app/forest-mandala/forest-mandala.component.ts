@@ -51,12 +51,12 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
     canvasSize = p.windowWidth / 1.5;
     p.resizeCanvas(canvasSize, canvasSize);
 
-    petal = p.windowWidth / 16;
-    Atriangex1 = p.windowWidth / 33;
-    Atriangley1 = p.windowWidth / 18;
-    Atriangley2 = p.windowWidth / 9;
-    Btriangley1 = p.windowWidth / 11;
-    AcircleSize = p.windowWidth / 63;
+    petal = canvasSize / 16;
+    Atriangex1 = canvasSize / 33;
+    Atriangley1 = canvasSize / 18;
+    Atriangley2 = canvasSize / 9;
+    Btriangley1 = canvasSize / 11;
+    AcircleSize = canvasSize / 63;
     AcircleX = BcircleX = petal;
     BcircleSize = AcircleSize * 6;
   }
@@ -165,7 +165,7 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
       p.stroke(255, 255, 255, 0);
       p.scale((p.sin(p.frameCount / 4) * .5) + .5);
       p.rotate(p.radians(p.frameCount / 4) * -50);
-      p.fill(p.color(216, 255, 151))
+      p.fill(p.color(this._c.yellowGreen200))
       for (let i = 0; i < 6; i++) {
         p.curve(petal, 0, 0, 0, 0, petal, petal, petal);
         p.curve(-petal, 0, 0, 0, 0, petal, -petal, petal);
