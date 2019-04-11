@@ -38,13 +38,15 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
   let lastPrint = 0;
   let i = 0;
 
-  // mandala objects
+    // mandala objects
   let petal;
-  let Atriangex1, Atriangley1, Atriangley2, Btriangley1;
+  let flowerX1, flowerY1, flowerY2, flowerCircle;
+  let Atrianglex1, Atriangley1, Atriangley2, Btriangley1;
+  let Ctrianglex1, Ctriangley1, Ctriangley2;
   let AcircleSize, AcircleX;
   let BcircleX, BcircleSize;
-  let flowerX1, flowerY1, flowerY2, flowerCircle;
-  let CCircleWH, CCircleXY, DCircleWH;
+  let CCircleWH, CCircleY, DCircleWH;
+  let ECircleHW;
 
   // setup vars
   let canvasSize;
@@ -54,7 +56,7 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
     p.resizeCanvas(canvasSize, canvasSize);
 
     petal = canvasSize / 16;
-    Atriangex1 = canvasSize / 33;
+    Atrianglex1 = canvasSize / 33;
     Atriangley1 = canvasSize / 18;
     Atriangley2 = canvasSize / 9;
     Btriangley1 = canvasSize / 11;
@@ -65,9 +67,15 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
     flowerY1 = canvasSize / 9;
     flowerY2 = canvasSize / 5.5;
     flowerCircle = canvasSize / 3.8;
-    CCircleXY = canvasSize / 10;
+    CCircleY = canvasSize / 10;
     CCircleWH = canvasSize / 20;
     DCircleWH = canvasSize / 15;
+    ECircleHW = canvasSize / 2.8;
+
+    Ctrianglex1 = Atrianglex1 * 2.8;
+    Ctriangley1 = Atriangley1 * 2.8;
+    Ctriangley2 = canvasSize / 4.5;
+
   }
 
     window.onresize = function() {
@@ -104,14 +112,32 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
       p.center.x = p.width / 2;
       p.center.y = p.height / 2;
 
+      // Ctriangle
+      p.push();
+      p.translate(p.center.x, p.center.y);
+      p.noStroke();
+      p.fill(this._c.oceanGreen400);
+      p.rotate(p.radians(p.frameCount / 4) * 50);
+      for (let i = 0; i < 6; i++) {
+        p.triangle(Ctrianglex1, -Ctriangley1, -Ctrianglex1, -Ctriangley1, 0, -Ctriangley2)
+        p.rotate(60);
+      }
+      p.pop();
+
+      // ECircle
+      p.push();
+        p.translate(p.center.x, p.center.y);
+        p.noStroke();
+        p.fill(p.color(this._c.green200));
+        p.ellipse(0, 0, ECircleHW, ECircleHW)
+      p.pop();
 
       // flowerA
       p.push();
         p.translate(p.center.x, p.center.y);
-        p.fill(p.color('#7cdd6d'));
+        p.fill(p.color(this._c.limeGreen300));
         p.push();
           p.noStroke();
-          p.fill(p.color('#7cdd6d'));
           p.ellipse(0, 0, flowerCircle, flowerCircle);
         p.pop();
         p.push();
@@ -119,7 +145,7 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
           for (let i = 0; i < 6; i++) {
             p.beginShape();
             p.vertex(-flowerX1, -flowerY1);
-            p.bezierVertex(-flowerX1, -flowerY2, 0 ,-flowerY1, 0, -flowerY2);
+            p.bezierVertex(-flowerX1, -flowerY2, 0, -flowerY1, 0, -flowerY2);
             p.bezierVertex(0, -flowerY1, flowerX1, -flowerY2, flowerX1, -flowerY1);
             p.endShape();
             p.rotate(60);
@@ -133,9 +159,9 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
         for (let i = 0; i < 6; i++) {
           p.noStroke();
           p.fill(p.color(this._c.oceanGreen400));
-          p.ellipse(0, -CCircleXY, DCircleWH, DCircleWH);
-          p.fill(p.color('#EEFAF7'));
-          p.ellipse(0, -CCircleXY, CCircleWH, CCircleWH);
+          p.ellipse(0, -CCircleY, DCircleWH, DCircleWH);
+          p.fill(p.color(this._c.peach100));
+          p.ellipse(0, -CCircleY, CCircleWH, CCircleWH);
           p.rotate(60);
         }
       p.pop();
@@ -172,12 +198,12 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
       p.fill(this._c.green200);
       p.rotate(p.radians(p.frameCount / 4) * 50);
       for (let i = 0; i < 6; i++) {
-        p.triangle(Atriangex1, -Atriangley1, -Atriangex1, -Atriangley1, 0, -Atriangley2)
+        p.triangle(Atrianglex1, -Atriangley1, -Atrianglex1, -Atriangley1, 0, -Atriangley2)
         p.rotate(60);
       }
       p.fill(this._c.oceanBlue400);
       for (let i = 0; i < 6; i++) {
-        p.triangle(Atriangex1, -Atriangley1, -Atriangex1, -Atriangley1, 0, -Btriangley1)
+        p.triangle(Atrianglex1, -Atriangley1, -Atrianglex1, -Atriangley1, 0, -Btriangley1)
         p.rotate(60);
       }
       p.pop();
@@ -211,7 +237,7 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
       p.stroke(255, 255, 255, 0);
       p.scale((p.sin(p.frameCount / 4) * .5) + .5);
       p.rotate(p.radians(p.frameCount / 4) * -50);
-      p.fill(p.color(this._c.yellowGreen200));
+      p.fill(p.color(this._c.limeGreen300));
       for (let i = 0; i < 6; i++) {
         p.curve(petal, 0, 0, 0, 0, petal, petal, petal);
         p.curve(-petal, 0, 0, 0, 0, petal, -petal, petal);
