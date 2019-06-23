@@ -112,6 +112,21 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
       p.center.x = p.width / 2;
       p.center.y = p.height / 2;
 
+      // outer triple circles
+      p.push();
+      p.translate(p.center.x, p.center.y);
+      p.noStroke();
+      for (let i = 0; i < 6; i++) {
+        p.fill(this._c.oceanBlue400);
+        p.circle(120, 0, 40);
+        p.fill(this._c.oceanBlue300);
+        p.circle(135, 0, 15);
+        p.fill(this._c.oceanBlue200);
+        p.circle(135, 0, 7);
+        p.rotate(60);
+      };
+      p.pop();
+
       // Ctriangle
       p.push();
       p.translate(p.center.x, p.center.y);
