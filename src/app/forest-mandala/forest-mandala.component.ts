@@ -47,6 +47,7 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
   let BcircleX, BcircleSize;
   let CCircleWH, CCircleY, DCircleWH;
   let ECircleHW;
+  let outerTripleCirclesBigX, outerTripleCirclesBigC, outerTripleCirlcesMidC, outerTripleCirclesMidSmlX, outerTripleCirclesSmlC;
 
   // setup vars
   let canvasSize;
@@ -75,6 +76,12 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
     Ctrianglex1 = Atrianglex1 * 2.8;
     Ctriangley1 = Atriangley1 * 2.8;
     Ctriangley2 = canvasSize / 4.5;
+    outerTripleCirclesBigX = canvasSize / 5.5;
+    outerTripleCirclesBigX = canvasSize / 5.5;
+    outerTripleCirclesBigC = canvasSize / 25;
+    outerTripleCirclesMidSmlX  = canvasSize / 6;
+    outerTripleCirlcesMidC = canvasSize / 26;
+    outerTripleCirclesSmlC = canvasSize / 40;
 
   }
 
@@ -118,11 +125,11 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
       p.noStroke();
       for (let i = 0; i < 6; i++) {
         p.fill(this._c.oceanBlue400);
-        p.circle(120, 0, 40);
+        p.circle(outerTripleCirclesBigX, 0, outerTripleCirclesBigC);
         p.fill(this._c.oceanBlue300);
-        p.circle(135, 0, 15);
+        p.circle(outerTripleCirclesMidSmlX, 0, outerTripleCirlcesMidC);
         p.fill(this._c.oceanBlue200);
-        p.circle(135, 0, 7);
+        p.circle(outerTripleCirclesMidSmlX, 0, outerTripleCirclesSmlC);
         p.rotate(60);
       };
       p.pop();
