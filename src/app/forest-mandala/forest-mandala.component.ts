@@ -38,7 +38,7 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
   let lastPrint = 0;
   let i = 0;
 
-    // mandala objects
+  // mandala objects
   let petal;
   let flowerX1, flowerY1, flowerY2, flowerCircle;
   let Atrianglex1, Atriangley1, Atriangley2, Btriangley1;
@@ -48,12 +48,14 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
   let CCircleWH, CCircleY, DCircleWH;
   let ECircleHW;
   let outerTripleCirclesBigX, outerTripleCirclesBigC, outerTripleCirlcesMidC, outerTripleCirclesMidSmlX, outerTripleCirclesSmlC;
+  let bigCircleC;
+  let trianglex1, triangley1, trianglex3;
 
   // setup vars
   let canvasSize;
 
   function calculateSizes() {
-    canvasSize = p.windowWidth / 1.5;
+    canvasSize = p.windowWidth / 2;
     p.resizeCanvas(canvasSize, canvasSize);
 
     petal = canvasSize / 16;
@@ -82,6 +84,11 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
     outerTripleCirclesMidSmlX  = canvasSize / 6;
     outerTripleCirlcesMidC = canvasSize / 26;
     outerTripleCirclesSmlC = canvasSize / 40;
+    bigCircleC = canvasSize / 3;
+
+    trianglex1 = canvasSize / 3;
+    triangley1 = canvasSize / 20;
+    trianglex3 = canvasSize / 10;
 
   }
 
@@ -118,6 +125,24 @@ export class ForestMandalaComponent implements OnInit, OnDestroy {
 
       p.center.x = p.width / 2;
       p.center.y = p.height / 2;
+
+      // big white circle
+      p.push();
+      p.translate(p.center.x, p.center.y);
+      p.noStroke();
+      p.circle(0, 0, bigCircleC);
+      p.pop();
+
+      // long skinny lots of  triangles
+      p.push();
+      p.translate(p.center.x, p.center.y);
+      p.noStroke();
+      p.fill(this._c.hotPink200);
+      for (let i = 0; i < 12; i++) {
+        p.triangle(-trianglex1, triangley1, -trianglex1, -triangley1, -trianglex3, 0);
+        p.rotate(30);
+      }
+      p.pop();
 
       // outer triple circles
       p.push();
